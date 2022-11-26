@@ -46,7 +46,7 @@ public class DijkstraPQShortestPath extends FindWay {
 			List<WeightedEdge> edgesFromCurrent = graph.getEdges(currentVertex); // Knoten 4 / Knoten 5 => Liefert die verbunden Knoten von Vertext
 			for (WeightedEdge we : edgesFromCurrent) {
 				int newCosts = dist[currentVertex] + we.weight;
-				int nextVertex = we.to_vertex; // wo möchte ich hin
+				int nextVertex = we.to_vertex; // wo möchte/kommen ich hin
 
 				if (newCosts < dist[nextVertex]) {
 					dist[nextVertex] = newCosts; // neue wegkosten festlegen
@@ -56,10 +56,10 @@ public class DijkstraPQShortestPath extends FindWay {
 			}
 		}
 
-		if (dist[to] == 9999) {
-			return false;	// Zielknoten nicht gefunden
+		if (dist[to] != 9999) {
+			return true;	// Zielknoten gefunden
 		}
 
-		return true;
+		return false; // Zielknoten nicht gefunden
 	}
 }

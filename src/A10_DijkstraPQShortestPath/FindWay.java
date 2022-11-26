@@ -2,6 +2,7 @@ package A10_DijkstraPQShortestPath;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class FindWay {
@@ -22,7 +23,8 @@ public abstract class FindWay {
 	public List<Integer> findWay(int from, int to) {
 		initPathSearch();
 		if (!calculatePath(from, to)) {
-			return null;
+			// keinen Weg gefunden
+			return null; // leer liste wäre auch ok
 		}
 		return createWay(from, to);
 	}
@@ -46,7 +48,13 @@ public abstract class FindWay {
 	protected ArrayList<Integer> createWay(int from, int to) {
 		ArrayList<Integer> way = new ArrayList<Integer>();
 
-		// TODO: IHRE IMPLEMENTIERUNG
+		int currentVertex = to;
+		while (from != currentVertex) {
+			way.add(0, currentVertex);
+			currentVertex = pred[currentVertex];
+		}
+
+		way.add(0, from);
 
 		return way;
 	}
