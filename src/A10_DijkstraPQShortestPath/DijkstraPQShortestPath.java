@@ -32,7 +32,34 @@ public class DijkstraPQShortestPath extends FindWay {
 	 */
 	protected boolean calculatePath(int from, int to) {
 
-		// TODO: IHRE IMPLEMENTIERUNG
+		// 1. schritt > eigene Distanz festlegen
+		dist[from] = 0;
+
+		// 2. schritt > heap aufbauen
+		VertexHeap vertexHeap = new VertexHeap(graph.numVertices());
+		for (int i = 0; i < graph.numVertices(); i++) {
+			vertexHeap.insert(new Vertex(i, dist[i]));
+		}
+
+		while (!vertexHeap.isEmpty()) {
+			int currentVertex = vertexHeap.remove().vertex; // currentVertex = 0
+			List<WeightedEdge> edgesFromCurrent = graph.getEdges(currentVertex); // Knoten 4 / Knoten 5 => Liefert die verbunden Knoten von Vertext
+			for (WeightedEdge we : edgesFromCurrent) {
+				int newCosts = dist[currentVertex] + we.weight;
+				int nextVertex = we.to_vertex; // wo möchte ich hin
+
+				if (newCosts < dist[nextVertex]) {
+					dist[nextVertex] = newCosts; // neue wegkosten festlegen
+					pred[nextVertex] = currentVertex;
+					vertexHeap.setCost(nextVertex, newCosts);
+				}
+			}
+		}
+
+		if (dist[to] == 9999) {
+			return false;	// Zielknoten nicht gefunden
+		}
+
 		return true;
 	}
 }

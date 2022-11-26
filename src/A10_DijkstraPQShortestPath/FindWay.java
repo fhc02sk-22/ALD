@@ -6,11 +6,11 @@ import java.util.List;
 
 public abstract class FindWay {
 	protected Graph graph;
-	protected int[] pred;
+	protected int[] pred; // Vorgänger
 	
 	public FindWay(Graph graph) {
 		this.graph = graph;
-		this.pred = new int[graph.numVertices()];
+		this.pred = new int[graph.numVertices()]; // Vorgäner
 	}
 
 	/**
