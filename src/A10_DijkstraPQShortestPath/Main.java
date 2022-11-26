@@ -4,7 +4,13 @@ import java.util.List;
 public class Main {
 
 	public static void main(String[] args) {
-		
+
+		/*
+			- Je Knoten soll das Land festgelegt werden
+			- Grenzübertritt soll zusätzliche Wegkosten von 2 hinzugefügt
+
+		 */
+
 		Graph g = new ListGraph(8, false);
 		g.addEdge(0, 4,  3);
 		g.addEdge(0, 5,  4);
