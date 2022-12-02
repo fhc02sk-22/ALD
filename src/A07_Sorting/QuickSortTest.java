@@ -6,7 +6,7 @@ public class QuickSortTest extends PersonenSortTest {
 
 	@Before
 	public void setUp() {
-		ps = new BubbleSort();
+		ps = new QuickSort();
 	}
 
 }
