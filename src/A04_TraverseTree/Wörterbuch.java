@@ -1,5 +1,8 @@
 package A04_TraverseTree;
 
+import A01_Stack.Stack;
+import A01_Stack.StackEmptyException;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,20 +41,52 @@ public class Wörterbuch {
 	 */
 	public Set<String> getWordsWithPrefix(String prefix) {
 
-		return getWordsWithPrefixInteral(getRoot(), prefix);
+		try {
+			return getWordsWithPrefixIterativ(prefix);
+		} catch (StackEmptyException e) {
+			throw new RuntimeException(e);
+		}
+
+
+		//return getWordsWithPrefixInteral(getRoot(), prefix);
+	}
+
+	private Set<String> getWordsWithPrefixIterativ(String prefix) throws StackEmptyException {
+		Stack<Wort> stack = new Stack<>();
+		Set<String> result = new HashSet<>();
+
+		stack.push(getRoot());
+
+		while (stack.getCount() > 0) {
+
+			Wort w = stack.pop();
+			if (w.getRight() != null)
+				stack.push(w.getRight());
+
+			if (w.getLeft() != null)
+				stack.push(w.getLeft());
+
+			if (w.getWort().startsWith(prefix))
+				result.add(w.getWort());
+		}
+
+		return result;
 	}
 
 	private Set<String> getWordsWithPrefixInteral(Wort w, String prefix) {
 
 		Set<String> result = new HashSet<>();
+		if (w == null)
+			return result;
+
 		if (w.getWort().startsWith(prefix)) {
 			result.add(w.getWort());
 		}
 
-		result.addAll(getWordsWithPrefixInteral(?, prefix));
+		result.addAll(getWordsWithPrefixInteral(w.getLeft(), prefix));
+		result.addAll(getWordsWithPrefixInteral(w.getRight(), prefix));
 
-
-		return null;
+		return result;
 	}
 	
 

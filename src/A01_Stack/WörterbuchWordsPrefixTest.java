@@ -1,9 +1,10 @@
-package A04_TraverseTree;
+package A01_Stack;
 
 import static org.junit.Assert.*;
 
 import java.util.Set;
 
+import A04_TraverseTree.Wörterbuch;
 import org.junit.Before;
 import org.junit.Test;
 
