@@ -46,7 +46,22 @@ public class Breitensuche extends BaseTree<Integer> {
 	 */
 	public List<Integer> getBreadthFirstOrderForLevel(Node<Integer> start, int level) {
 
-		return null;
+		List<Integer> result = new ArrayList<>();
+
+		Queue<NodeWithLevel> queue = new ArrayDeque<>();
+		queue.add(new NodeWithLevel(start, 1));
+
+		while (!queue.isEmpty()) {
+			Node<Integer> node = queue.poll();
+			if (node.getLeft() != null)
+				queue.add(node.getLeft());
+			if (node.getRight() != null)
+				queue.add(node.getRight());
+
+			result.add(node.getValue());
+		}
+
+		return result;
 	}
 
 }
