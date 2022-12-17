@@ -1,5 +1,6 @@
 package A06_Tiefensuche;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import A05_Breitensuche.BaseTree;
@@ -13,6 +14,12 @@ public class Tiefensuche extends BaseTree<Film> {
 	 */
 	protected int compare(Film a, Film b) {
 
+		if (a.getLänge() < b.getLänge()) {
+			return -1;
+		}
+		if (a.getLänge() > b.getLänge()) {
+			return 1;
+		}
 		return 0;
 	}
 
@@ -23,7 +30,13 @@ public class Tiefensuche extends BaseTree<Film> {
 	 */
 	public List<String> getNodesInOrder(Node<Film> node) {
 
-		return null;
+		ArrayList<String> als = new ArrayList<String>();
+		if (node != null) {
+			als.addAll(getNodesInOrder(node.getLeft()));
+			als.add(node.getValue().getTitel());
+			als.addAll(getNodesInOrder(node.getRight()));
+		}
+		return als;
 	}
 	
 	/**
@@ -33,8 +46,29 @@ public class Tiefensuche extends BaseTree<Film> {
 	 * @return Liste der Filmtitel in Hauptreihenfolge
 	 */
 	public List<String> getMinMaxPreOrder(double min, double max) {
+		return getMinMaxPreOrder(root, min, max);
+	}
 
-		return null;
+	/**
+	 * Rekursive Hilfsfunktion
+	 */
+	private List<String> getMinMaxPreOrder(Node<Film> node, double min, double max) {
+		ArrayList<String> result = new ArrayList<>();
+		if (node == null) {
+			return result;
+		}
+		double laenge = node.getValue().getLänge();
+
+		if (laenge >= min && laenge < max) {
+			result.add(node.getValue().getTitel());
+		}
+		if (laenge >= min) {
+			result.addAll(getMinMaxPreOrder(node.getLeft(), min, max));
+		}
+		if (laenge < max) {
+			result.addAll(getMinMaxPreOrder(node.getRight(), min, max));
+		}
+		return result;
 	}
 
 }
