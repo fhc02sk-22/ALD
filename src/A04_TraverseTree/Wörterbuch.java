@@ -1,5 +1,6 @@
 package A04_TraverseTree;
 
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -20,8 +21,14 @@ public class Wörterbuch {
 	 * @return Zahl der Wörter (=Anzahl der Elemente)
 	 */
 	public int countWordsInSubTree(Wort w) {
-		
-		return 0;
+
+		if (w == null)
+			return 0;
+
+		int ergLeft = w.getLeft() != null ? countWordsInSubTree(w.getLeft()) : 0;
+		int ergRight = w.getRight() != null ? countWordsInSubTree(w.getRight()) : 0;
+
+		return ergLeft + ergRight + 1;
 	}
 
 	/**
@@ -30,7 +37,20 @@ public class Wörterbuch {
 	 * @return Menge aller zutreffenden Wörter
 	 */
 	public Set<String> getWordsWithPrefix(String prefix) {
-		
+
+		return getWordsWithPrefixInteral(getRoot(), prefix);
+	}
+
+	private Set<String> getWordsWithPrefixInteral(Wort w, String prefix) {
+
+		Set<String> result = new HashSet<>();
+		if (w.getWort().startsWith(prefix)) {
+			result.add(w.getWort());
+		}
+
+		result.addAll(getWordsWithPrefixInteral(?, prefix));
+
+
 		return null;
 	}
 	
