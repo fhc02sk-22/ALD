@@ -1,6 +1,9 @@
 package A05_Breitensuche;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 public class Breitensuche extends BaseTree<Integer> {
 
@@ -16,7 +19,22 @@ public class Breitensuche extends BaseTree<Integer> {
 	 */
 	public List<Integer> getBreadthFirstOrder(Node<Integer> start) {
 
-		return null;
+		List<Integer> result = new ArrayList<>();
+
+		Queue<Node<Integer>> queue = new ArrayDeque<>();
+		queue.add(start);
+
+		while (!queue.isEmpty()) {
+			Node<Integer> node = queue.poll();
+			if (node.getLeft() != null)
+				queue.add(node.getLeft());
+			if (node.getRight() != null)
+				queue.add(node.getRight());
+
+			result.add(node.getValue());
+		}
+
+		return result;
 	}
 
 	/**
